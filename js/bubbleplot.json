@@ -1,0 +1,145 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 500,
+  "data": {
+    "url": "https://raw.githubusercontent.com/qtpatootie01/covid19/main/data/covid19_latest.csv"
+  },
+  "params": [
+    {
+      "name": "populationN",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 100000000,
+        "step": 100,
+        "name": "Population: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "datum.continent != ''"},
+    {"filter": "datum.population > populationN"},
+    {
+      "calculate": "toNumber(datum.total_cases_per_million)",
+      "as": "Total Cases Per Million"
+    },
+    {"filter": "datum.human_development_index != ''"},
+    {"calculate": "toNumber(datum.human_development_index)","as": "Human Development Index"},
+    {"calculate": "toNumber(datum.gdp_per_capita)", "as": "GDP Per Capita"},
+    {"calculate": "toNumber(datum.life_expectancy)", "as": "Life Expectancy"},
+    {"calculate": "toNumber(datum.stringency_index)", "as": "Stringency Index"}
+  ],
+  "encoding": {
+    "x": {"field": "Human Development Index", "type": "quantitative"},
+    "y": {
+      "field": "Total Cases Per Million",
+      "type": "quantitative",
+      "axis": {"tickCount": 3},
+      "scale": {"type": "log"}
+    }
+  },
+  "layer": [
+    {
+      "selection": {
+        "continent_highlight": {
+          "type": "multi",
+          "fields": ["continent"],
+          "bind": "legend"
+        }
+      },
+      "mark": "circle",
+      "encoding": {
+        "size": {
+          "field": "population",
+          "type": "quantitative",
+          "title": "Population",
+          "scale": {
+            "type": "threshold",
+            "domain": [1000000, 10000000, 50000000, 100000000, 500000000],
+            "range": [10, 50, 150, 250, 400, 600]
+          },
+          "legend": {"format": ".1s"}
+        },
+        "color": {
+          "field": "continent",
+          "type": "nominal",
+          "title": "Continent",
+          "scale": {
+            "domain": [
+              "North America", 
+              "South America", 
+              "Europe", 
+              "Africa", 
+              "Asia", 
+              "Oceania"],
+            "range": [
+              "#9be79e", 
+              "#ffd693", 
+              "#75bdff", 
+              "#9c9191", 
+              "#d265ec", 
+              "#fe9aff"]
+          }
+        },
+        "opacity": {
+          "condition": {"param": "continent_highlight", "value": 0.8},
+          "value": 0.1
+        },
+        "tooltip": [
+          {"field": "location", "type": "nominal", "title": "Country"},
+          {
+            "field": "population",
+            "type": "quantitative",
+            "title": "Population"
+          },
+          {"field": "Human Development Index", "type": "quantitative"},
+          {
+            "field": "total_cases",
+            "type": "quantitative",
+            "title": "Total Cases"
+          },
+          {
+            "field": "total_cases_per_million",
+            "title": "Total Cases Per Million",
+            "type": "quantitative"
+          }
+        ]
+      }
+    },
+    {
+      "params": [{"name": "grid", "select": "interval", "bind": "scales"}],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -12,
+        "fontSize": 13,
+        "fontStyle": "Bold"
+      },
+      "encoding": {
+        "text": {"field": "location", "type": "nominal"},
+        "color": {"value": "black"},
+        "opacity": {
+          "condition": {
+            "test": "datum.location == 'Australia' || datum.location == 'United States' || datum.location == 'Egypt' || datum.location == 'Brazil' || datum.location == 'Japan' ||datum.location == 'Russia'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "",
+    "axis": {
+      "labelColor": "black",
+      "titleColor": "black",
+      "gridColor": "lightgray", 
+      "titleFontSize": 15
+    },
+    "legend": {"labelColor": "black", "titleColor": "black", "titleFontSize": 15, "titleFontWeight": "bold", "labelFontSize": 12},
+    "title": {"color": "black"}
+  }
+}

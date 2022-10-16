@@ -1,0 +1,97 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "billionaire Age",
+    "width": 500,
+    "height": 500,
+    "data": {
+      "url": "https://raw.githubusercontent.com/qtpatootie01/covid19/main/data/donut_vaccination.csv"
+    },
+     "config": {
+          "font": "Helvetica Neue, Arial",
+          "axis": {
+              "labelFont": "Helvetica Neue, Arial",
+              "titleFont": "Helvetica Neue, Arial",
+              "labelColor": "black",
+              "titleColor": "black",
+              "gridColor": "lighter",
+              "labelFontSize":12,
+              "labelLimit":500,
+              "titleFontSize": 14
+          },
+          "lineBreak": "linebreak",
+          "title":{
+              "fontSize":20,
+              "font": "Helvetica Neue, Arial"
+          },
+          "style": {
+              "guide-title": {
+                  "font": "Helvetica Neue, Arial",
+                  "fontSize":14
+              },
+              "text": {
+                  "font": "Helvetica Neue, Arial",
+                  "fontSize": 12,
+                  "fontStyle": "bolder"
+              }
+          }
+      },
+    "layer":[{
+      "mark": {"type": "arc", "innerRadius": 120, "outerRadius": 200},
+      "encoding": {
+          "theta": {"field": "Total_Vaccinations", "type": "quantitative"},
+          "color": {"field": "Vaccine", 
+                    "type": "nominal",
+                    "scale": {
+                "domain": [
+                "Pfizer/BioNTech", 
+                "Moderna", 
+                "Oxford/AstraZeneca", 
+                "Sputnik V", 
+                "Sinovac", 
+                "Sinopharm/Beijing",
+                "Johnson&Johnson"],
+                "range": [
+                  "#3182BD", 
+                  "#B1D0CA", 
+                  "#A55194", 
+                  "#9c9191", 
+                  "#F7C78B", 
+                  "#D67195", 
+                  "#9E765F"]
+              },
+                    "legend": {
+                      "orient": "right", 
+                      "title": "Vaccine", 
+                      "labelFont": "Helvetica Neue, Arial",
+                      "labelFontSize": 13,
+                      "titleFontSize": 18, 
+                      "labelFontStyle": "bold"}
+                  },
+          "tooltip": [
+            {
+              "field": "Vaccine", 
+              "type": "nominal", 
+              "title": "Vaccine"
+            },
+            {
+              "field": "Total_Vaccinations",
+              "type": "quantitative",
+              "title": "Total Vaccinations"
+            }
+          ]
+      }
+    },
+    {
+      "mark": {"type": "text", "radiusOffset": 30},
+      "encoding": {
+        "text": {"field": "Percentage", "type": "nominal"},
+        "color": {"field": "Vaccine", 
+                    "type": "nominal"}
+      }
+    }
+  ],
+  "encoding": {
+    "theta": {"field": "Total_Vaccinations", "type": "quantitative", "stack": true},
+    "radius": {"field": "Total_Vaccinations", "scale": {"type": "sqrt", "zero": true, "rangeMin": 200, "rangeMax": 200}}
+  }
+  }
