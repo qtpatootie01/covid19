@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Import pure.css -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter&family=Josefin+Sans:wght@500&family=Paytone+One&family=Righteous&display=swap" rel="stylesheet">
+    
+    <!-- icon for webpage -->
+    <link rel="icon" type = "image/png" href="resources/covid_icon.png">
+    
+    <!-- CSS file -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/styles.css" media="all"> -->
+    <link rel="stylesheet" href="styles.css"> 
+
+    <!-- Vegalite -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+    <title>COVID-19 Latest Update</title>
+
+</head>
+<body style="background-color: rgb(211, 219, 237);">
+
+    <!-- Header and subtitles -->
+    <div class="page">
+        <div class="pure-g">
+            <div class="pure-u-1-1" style="justify-content: center; margin-bottom: -10pt;">
+                <h1 style="color: rgb(13, 7, 94); text-align: center; font-size:50pt; margin-top: 15px; margin-bottom: -5px;">COVID-19 Latest Update</h1>
+                <p class="body">
+                    The SARS-CoV-2 virus is the infectious agent that causes coronavirus illness (COVID-19)
+                     (<b><span style="color:rgb(22, 2, 177)">World Health Organization</span></b>, 2022).   
+                    <br>The COVID-19 epidemic was first brought to the attention of the WHO on December 31, 2019, 
+                    and on January 30, 2020, the WHO deemed it to be a global health emergency. 
+                    The world has undergone significant transformation as a result of the corona virus, 
+                    in addition to our own lives. As it has been more than 2 years since the discovery of the virus, 
+                    most countries are currently in the transition phase of endemicity. 
+                    Consequently, the dashboard below enables users to explore the most recent information about the corona virus through the following visualisations.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Choropleth Map Section -->
+    <div class="page">
+        <div class="pure-g" style="margin-bottom: 20pt;">
+            <div class="pure-u-1-1">
+                <div class="pure-u-1-1 page-title-box">
+                    <h2 class="page-title">How's the world progressing with Covid-19 today?</h2>
+                </div>
+                <div class="span p-4">
+                    <p class="body">
+                    <br>The map below displays the most latest total number of cases per million people.
+                    Hover over the map to see the most <b>recent updated date</b>, as well as the <b>number of new cases in each country</b> as of today, 
+                    in addition to the <b>total number of cases per million</b>. <br>
+                    <br><i>Aside from that, you may focus on a certain continent by utilising the drop-down menu below.</i>
+                    </p>
+                    
+                  </div>
+                  <div id="choropleth" class="p-3 w-100"></div>
+
+                  <div class="span p-4">
+                    <p class="body">
+                        <br><br><br>
+                    According to the following visualisation, <b><span style="color:#877f7f">Africa </span></b>
+                    <b>has the fewest recorded cases</b>, whereas other continents, 
+                    such as <b><span style="color:#53a5f1">Europe </span></b>
+                    
+                    <b>, have the most</b>. <b><span style="color:#53a5f1">Europe </span></b> is the most developed continent in the world, with the majority of its countries being developed. 
+                    Thus, one plausible explanation for its large number of reported cases might be because the continent has the means for its people to do testing, while Africa, which is not as developed as Europe, has lesser testing capacity.
+                    </p>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Heat Map -->
+    <div class="page">
+        <div class="pure-g" style="margin-bottom: 20pt;">
+            <div class="pure-u-1-1">
+                <div class="pure-u-1-1 page-title-box">
+                    <h2 class="page-title">How far have we come in a year?</h2>
+                </div>
+                <div class="span p-4">
+                    
+                    <p class="body">
+                        <br>  
+                    We continue to monitor the number of new cases reported throughout the year (September 2021 to September 2022). <br>
+                    Edvidently, there has been a <b>drastic rise</b> in the number of reported cases during <b>early January 2022</b>. 
+                    The <b><span style="color:rgb(22, 2, 177)"> World Health Organization (WHO) </span></b>
+                    
+                    has also pointed out that the following week (17-23 January 2022) 
+                    had over over 21 million new cases were reported this week, representing the highest number of weekly 
+                    cases recorded since the beginning of the pandemic.
+
+                    <br> <br>Moving forward, we can observe that there has been a decline in the number of cases as the months go by. 
+                    However, these trends should be interpreted with caution as several countries are progressively 
+                    changing their COVID-19 testing strategies, resulting in lower overall number of tests performed and as a result lower number of cases detected. 
+                    </p>
+
+                  </div>
+                  <div id="heatmap_cases" class="p-3 w-100"></div>
+                  <div class="span p-4">
+                  </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Bubble Plot -->
+     <div class="page">
+        <div class="pure-g" style="margin-bottom: 20pt;">
+            <div class="pure-u-1-1">
+                <div class="pure-u-1-1 page-title-box">
+                    <h2 class="page-title">Countries' statistics and the number of cases</h2>
+                </div>
+                <div class="span p-4">
+                    <p class="body">
+                    <br> 
+                    Ultimately, there are various factors that might contribute to an increase in the number of reported cases.
+                    By examining the relationship between each country's statistics and it's reported cases, 
+                    we may gain valuable insights on the factors that could result to an increase in the number of cases.
+                    <br> <br> 
+                    <b>What factors may possibly be related to the number of reported cases? </b>
+                    <br><i>Click on following drop-down menu to find out!</i>
+                    <br>
+                    <div class="pure-form" style="justify-content: right;">
+                        <select id="bubble_option" class="pure-input-1-1" onchange="changeBubbleOption()" style="min-width: 280px; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); margin-left: 20px;">
+                            <option value="Human Development Index">Human Development Index</option>
+                            <option value="GDP Per Capita">GDP Per Capita</option>
+                            <option value="Life Expectancy">Life Expectancy</option>
+                        </select>
+                    </div>
+                    </p>
+                    
+                </div>
+                    <div id="bubbleplot"  class="vis-container"></div>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bar Charts: Cases and Deaths -->
+    <div class="page">
+        <div class="pure-g">
+            <div class="pure-u-1-1" style="margin-bottom: 15pt;">
+                <div class="pure-u-1-1 page-title-box">
+                    <h2 class="page-title">Top N reported cases and deaths of the countries</h2>
+                </div>
+                <p class="body">
+                <br> <br> From the visualisation, we can observe that most <b><span style="color:#53a5f1">Europe </span></b> countries have a <b>high ranking </b>in both of 
+                the bar charts. One plausible reason is that the citizens have not following the Covid-19 SOP closely. 
+                As a result, the total number of reported cases and deaths are large. 
+                <br><br><i>Use the scroll bar below to examine the average reported cases and deaths for the Top N countries and observe how the average line changes for the rankings!!
+                    <br> You may also hover over each bar chart to get more insights on the country.</i>
+                </p>
+            </div>
+            <div class="pure-u-1-2">
+                <div id="bar_cases" class="vis-container"></div>
+            </div>
+            <div class="pure-u-1-2">
+                <div id="bar_deaths"  class="vis-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stacked Bar Chart -->
+    <div class="page">
+        <div class="pure-g" style="margin-bottom: 20pt;">
+            <div class="pure-u-1-1">
+                <div class="pure-u-1-1 page-title-box">
+                    <h2 class="page-title">Is everyone been fully vaccinated?</h2>
+                </div>
+                <div class="span p-4">
+                    <p class="body">
+                        <br>  
+                    Many countries have developed their vaccination programmes. 
+                    However, as seen in the stacked bar chart below, 
+                    the following countries have made it a <b>priority for residents aged 50 and up</b> to be fully vaccinated. 
+                    This might be because they have a poorer immune system to the virus and are more inclined to die. 
+                    Not to mention, in general, older individuals who become ill have more complex medical problems and 
+                    require more health care than younger people.
+                    As a result, countries have prioritised vaccinating elderly residents first, 
+                    to reduce their risk of becoming sickened by the virus.
+                    Finally, <b><span style="color:rgb(22, 2, 177)"> World Health Organization (WHO) </span></b> has also stated that <b>at least 68.3%</b> of the world population has <b>received at least one dose</b> of a COVID-19 vaccine. 
+                    Furthermore, <b>12.83 billion doses have been administered globally,</b> 
+                    and <b>2.78 million are now administered each day</b>. 
+                    This shows that we are still in the transition phase for endemicity.
+
+                    <br><br><i>Hover over the stacked bar chart to further explore the proportions of the fully vaccinated age groups!</i>
+                    </p>
+                  </div>
+                  <div id="stackedbarchart" class="p-3 w-100"></div>
+                  <div class="span p-4">
+                  </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Donut Chart -->
+    <div class="page">
+        <div class="pure-g" style="margin-bottom: 20pt;">
+            <div class="pure-u-1-1">
+                <div class="pure-u-1-1 page-title-box">
+                    <h2 class="page-title">The best vaccination to conquer Covid-19?</h2>
+                </div>
+                <div class="span p-4">
+                    <p class="body">
+                        Finally, we are exploring the types of vaccinations out there!
+                    COVID-19 vaccines have proven to be safe, effective and life-saving.
+                    Due to extensive research by multiple  countries and organizations, 
+                    various vaccines have been developed to combat the viral outbreak. 
+                    The donut chart below shows that <b><span style="color:#3182BD"> Pfizer/BioNTech</span></b>
+                     and <b><span style="color:#84b5ab"> Moderna</span></b> have 
+                    been statistically proven to be the <b>most effective</b> vaccines. 
+                    Therefore, many countries have been trying to get the following vaccine 
+                    for their citizens, causing the following vaccine production to increase. 
+
+                    <br><br><i>Use the legend to highlight specific vaccines and hover over the donut chart to find out more!</i>
+                    </p>
+                    <br>  
+                  </div>
+                  <div id="donut_vaccine" class="p-3 w-100"></div>
+                  <div class="span p-4">
+                  </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Conclusion -->
+     <div class="page">
+        <div class="pure-g" style="margin-bottom: 20pt;">
+            <div class="pure-u-1-1">
+                <div class="pure-u-1-1 page-title-box">
+                    <h2 class="page-title">Conclusion</h2>
+                </div>
+                <div class="span p-4">
+                    <p class="body">
+                        <br>  
+                        We have observed and analysed the factors that contribute to the rise in reported cases as the world 
+                        steadily transitions into endemicity. Moreover, because more than half of the population have 
+                        been vaccinated, we have seen a significant decline in the number of reported cases since early January. 
+                        However, in efforts of endemicity, governments and responsible authorities should closely monitor the trends of reported cases, 
+                        since several countries have already changed their testing strategies, 
+                        resulting in a lower number of reported cases.
+    
+                        <br><br><i>Note: The dataset used for this dashboard is sourced from
+                        <a href="https://github.com/owid/covid-19-data/tree/master/public/data" target="_blank"> Our World In Data's GitHub</href></a> 
+                        while the facts are proved by <a href="https://www.who.int/"> World Health Organization</a>. </i>
+                    </p>
+                    
+                  </div>
+                  <div id="donut_vaccine" class="p-3 w-100"></div>
+                  <div class="span p-4">
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center position-relative">
+        <p class="footer">Copyright &copy; 2022 <a href="https://github.com/qtpatootie01" target="_blank">Leong Pui Lum</a>  <br><br></p>
+        <a href="#" class="position-absolute bottom-0 end-0">
+        <i class="bi bi-arrow-up-circle h1"></i>
+        </a>
+    </footer>
+
+   
+    <script type="text/javascript">
+
+        let bubblePlot = getJson("./js/bubbleplot.json")
+
+        function getJson(filePath) {
+            let request = new XMLHttpRequest()
+            request.open("GET", filePath, false)
+            request.send(null)
+            return JSON.parse(request.responseText)
+        }
+
+        function refreshIdiom(id, vgJson) {
+            vegaEmbed(id, vgJson).then(_ => {}).catch(console.error)
+        }
+
+
+        function changeBubbleOption() {
+            let option = document.getElementById("bubble_option").value
+            bubblePlot["encoding"]["x"]["field"] = option
+            bubblePlot["layer"][0]["encoding"]["tooltip"][2]["field"] = option
+            refreshIdiom("#bubbleplot", bubblePlot)
+        }
+        
+    </script>
+
+     <!-- Vegalite Embeds -->
+     <script type="text/javascript">
+
+        // Choropleth 
+        var choropleth = "js/choropleth.json";
+        vegaEmbed("#choropleth", choropleth)
+            .then(function (result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            })
+            .catch(console.error);
+        
+        // Bar Cases 
+        var bar_cases = "js/bar_cases.json";
+        vegaEmbed("#bar_cases", bar_cases)
+            .then(function (result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            })
+            .catch(console.error);
+        
+        // Bar Deaths 
+        var bar_deaths = "js/bar_deaths.json";
+        vegaEmbed("#bar_deaths", bar_deaths)
+            .then(function (result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            })
+            .catch(console.error);
+
+        // Bubble Plot 
+        var bubbleplot = "js/bubbleplot.json";
+        vegaEmbed("#bubbleplot", bubbleplot)
+            .then(function (result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            })
+            .catch(console.error);
+
+        // Bubble Plot 
+        var bubbleplot = "js/bubbleplot.json";
+        vegaEmbed("#bubbleplot", bubbleplot)
+            .then(function (result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            })
+            .catch(console.error);
+
+        // Stacked Bar Chart
+        var stackedbarchart = "js/stackedbarchart.json";
+        vegaEmbed("#stackedbarchart", stackedbarchart)
+            .then(function (result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            })
+            .catch(console.error);
+
+        // Donut 
+        var donut_vaccine = "js/donut_vaccine.json";
+        vegaEmbed("#donut_vaccine", donut_vaccine)
+            .then(function (result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            })
+            .catch(console.error);
+        
+        // HeatMap 
+        var heatmap_cases = "js/heatmap_cases.json";
+        vegaEmbed("#heatmap_cases", heatmap_cases)
+            .then(function (result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            })
+            .catch(console.error);
+        
+        
+
+    </script>
+</body>
+
+</html>

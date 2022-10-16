@@ -1,0 +1,133 @@
+H2, H3, H4, H5, H6 {
+    font-family: 'Josefin Sans', sans-serif;
+    color: rgb(0, 0, 0);
+}
+h1 {
+    font-family: 'Paytone One', sans-serif;
+    font-weight: 600;
+}
+
+a {
+    color: rgb(28, 21, 251);
+}
+
+.body{
+    font-family: 'Inter', sans-serif;
+}
+
+.page-title {
+    font-size: 25pt;
+    font-weight: 700pt;
+    color: white;
+    font-family: 'Josefin Sans', sans-serif;
+    margin-left: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.page-title-box {
+    background-color: rgb(90, 113, 162); 
+    border-radius: 10px;
+}
+.page {
+    width: 950px;    
+    background-color: rgb(255, 255, 255);   
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 50px;
+    padding-top: 35px;
+    border: 3px;
+    border-radius: 7px;
+}
+.vis-container {
+    width: 100%;
+    min-height: 100px;
+}
+.description h2, h1 {
+    margin-top:0px;
+}
+
+.pure-g {
+    /* margin-bottom: 25px; */
+    justify-content: center;
+}
+
+.ins {
+    font-style: italic;
+    color: rgb(20, 18, 18);
+    margin-left: 5px;
+}
+.footer {
+    font-size: 12pt;
+    font-style: bold;
+    margin: 0pt;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+
+}
+
+#choropleth{
+	top:10px;
+	bottom: 10px; 
+	left: 100px;
+	right: 100px;
+	/* height: 1000px; */
+	width: 800px;
+}
+
+#heatmap_cases{
+	top:10px;
+	bottom: 10px; 
+	/* left: 100px; */
+	/* right: 100px; */
+	height: 40px; 
+	/* width: 800px; */
+}
+
+#bubbleplot{
+	top:10px;
+	bottom: 10px; 
+	left: 40px;
+	right: 50px;
+	height: 40px; 
+	/* width: 800px; */
+}
+
+#bar_cases{
+	top:10px;
+	bottom: 10px; 
+	/* left: 40px; */
+	right: 10px;
+	height: 40px; 
+	/* width: 800px; */
+}
+
+#bar_deaths{
+	top:10px;
+	bottom: 10px; 
+	/* left: 20px; */
+	/* right: 50px; */
+	height: 40px; 
+	/* width: 800px; */
+}
+
+#stackedbarchart{
+	top:10px;
+	/* bottom: 10px;  */
+	/* left: 100px;
+	right: 100px; */
+	/* height: 100px;  */
+	/* width: 800px; */
+}
+
+#donut_vaccine{
+	top:10px;
+	bottom: 10px; 
+	left: 100px;
+	right: 100px;
+	/* height: 100px;  */
+	/* width: 800px; */
+}
+
+
