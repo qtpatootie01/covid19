@@ -1,0 +1,124 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 400,
+    "data": {
+      "url": "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations-by-age-group.csv"
+    },
+    "config": {
+      "font": "Helvetica Neue, Arial",
+      "axis": {
+          "labelFont": "Helvetica Neue, Arial",
+          "titleFont": "Helvetica Neue, Arial",
+          "labelColor": "black",
+          "titleColor": "black",
+          "gridColor": "lighter",
+          "labelFontSize":12,
+          "labelLimit":500,
+          "titleFontSize": 14
+      },
+      "lineBreak": "linebreak",
+      "title":{
+          "fontSize":15,
+          "font": "Helvetica Neue, Arial", 
+          "fontStyle":"bolder"
+      },
+      "style": {
+          "text": {
+              "font": "Helvetica Neue, Arial",
+              "fontSize": 14,
+              "fontStyle": "bolder"
+          }
+      }
+  },
+      "transform": [
+      {"filter": "datum.location != 'Argentina'"},
+      {"filter": "datum.location != 'Australia'"},
+      {"filter": "datum.location != 'Canada'"},
+      {"filter": "datum.location != 'Hong Kong'"},
+      {"filter": "datum.location != 'Israel'"},
+      {"filter": "datum.location != 'Jersey'"},
+      {"filter": "datum.location != 'Switzerland'"},
+      {"filter": "datum.location != 'Uruguay'"},
+      {"filter": "datum.location != 'Japan'"},
+      {"filter": "datum.age_group != '0-4'"}, 
+       {"filter": "datum.age_group != '0-17'"},
+       {"filter": "datum.age_group != '12-17'"},
+       {"filter": "datum.age_group != '5-9'"}
+    ],
+    "layer": [
+      {
+        
+        "mark": {"type": "bar", "tooltip": true},
+        "encoding": {
+          "x": {
+            "field": "location",
+            "type": "nominal",
+            "title": "Country",
+            "axis": {
+              "labelFontSize": 12,
+              "titleFontSize": 15
+            }
+          },
+          "y": {
+            "aggregate": "mean",
+            "field": "people_fully_vaccinated_per_hundred",
+            "title": "Fully Vaccinated Proportion",
+            "stack": "normalize",
+            "format": ".2%",
+            "axis": {
+              "title": "Fully Vaccinated Proportion",
+              "labelFontSize": 11,
+              "titleFontSize": 15
+            }
+          },
+          "color": {
+            "field": "age_group",
+            "title": "Age Group",
+            "legend": {"titleFontSize": 15, "labelFontSize": 12}
+            ,
+            "scale": {
+                      "domain": [
+                          "10-14",
+                          "15-17",
+                          "18-24",
+                          "25-49",
+                          "50-59",
+                          "60-69",
+                          "70-79",
+                          "80+"
+                      ],
+                      "range": [
+                          "#FFDFAF",
+                          "#D289FF",
+                          "#FFBDF8",
+                          "#BDD6FF",
+                          "#FAFF8A",
+                          "#68EAB8",
+                          "#C6C5D8",
+                          "#9D7D7D"
+                      ]
+                  }
+          
+          }
+        }
+      },
+      {
+        "encoding": {"y": {"datum": 0.5}},
+        "layer": [
+          {
+            "mark": "rule",
+            "encoding": {"size": {"value": 3}, "color": {"value": "red"}}
+          },
+          {
+            "mark": {
+              "type": "text",
+              "text": "threshhold (50%)",
+              "color": "red",
+              "dx": 460
+            }
+          }
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,178 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "background": null,
+    "width": "container",
+    "height": 400,
+    "projection": {"type": "equalEarth"},
+    "data": {
+      "url": "https://raw.githubusercontent.com/qtpatootie01/covid19/main/js/ne_110m.json",
+      "format": {"type": "topojson", "feature": "countries"}
+    },
+    "config": {
+      "font": "Helvetica Neue, Arial",
+      "axis": {
+          "labelFont": "Helvetica Neue, Arial",
+          "titleFont": "Helvetica Neue, Arial",
+          "labelColor": "black",
+          "titleColor": "black",
+          "gridColor": "lighter",
+          "labelFontSize":12,
+          "labelLimit":500,
+          "titleFontSize": 14
+      },
+      "lineBreak": "linebreak",
+      "title":{
+          "fontSize":20,
+          "font": "Helvetica Neue, Arial"
+      },
+      "style": {
+        "guide-title": {
+          "font": "Helvetica Neue, Arial",
+          "fontSize":14
+        },
+        "text": {
+          "font": "Helvetica Neue, Arial",
+          "fontSize": 15,
+          "fontStyle": "Italic"
+        },
+        "legend":{
+          "labelFont": "Helvetica Neue, Arial",
+          "labelFontSize": 12,
+          "titleFontSize": 14
+        }
+      }
+    },
+    "params": [
+      {
+        "name": "Continent_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "labels": ["Show All", 
+          "Africa",
+          "Asia",
+          "Europe",
+          "North America",
+          "Oceania",
+          "South America"],
+          "name": "Continent Selection: "
+        }
+      }
+    ],
+      "layer": [
+        {
+          "data": {"sphere": true},
+          "mark": {"type": "geoshape", "fill": "lightskyblue"}
+        },
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/qtpatootie01/covid19/main/js/ne_110m.json",
+            "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+          },
+          "mark": {"type": "geoshape", "fill": null, "stroke": "lightslategray"}
+        },
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/qtpatootie01/covid19/main/js/ne_110m.json",
+            "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+          },
+          "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+          "transform": [
+            {
+              "calculate": "'Data is not available in ' + datum.properties.NAME",
+              "as": "NoData"
+            }
+          ],
+          "encoding": {"tooltip": {"field": "NoData"}}
+        },
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/qtpatootie01/covid19/main/js/ne_110m.json",
+            "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+          },
+          "transform": [
+            {
+              "lookup": "properties.NAME",
+              "from": {
+                "data": {
+                  "url": "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest/owid-covid-latest.csv"
+                },
+                "key": "location",
+                "fields": ["total_cases", "continent", "last_updated_date", "population", "new_cases_smoothed"]
+              }
+            },
+            {"calculate": "datum.total_cases/datum.population*1000000",
+             "as": "Total Cases Per Million"},
+            {
+              "filter": "Continent_selection == null || datum.continent == Continent_selection"
+            }
+          ],
+          "layer": [
+            {
+              "mark": {"type": "geoshape", "stroke": "lightslategray"},
+              "encoding": {
+                "color": {
+                  "field": "Total Cases Per Million",
+                  "type": "quantitative",
+                  "scale": {
+                    "type": "threshold",
+                    "domain": [100, 1000, 10000, 100000, 1000000 ],
+                    "range": [
+                      "#c7e9c0",
+                      "#a1d99b",
+                      "#74c476",
+                      "#41ab5d",
+                      "#238b45",
+                      "#00441b"
+                    ]
+                  },
+                  "legend": {
+                    "direction": "horizontal",
+                    "orient": "bottom",
+                    "titleLimit": 1000,
+                    "labelFontSize": 11,
+                    "titleFontSize": 13
+                  }
+                },
+                "tooltip": [
+                  {
+                    "field": "properties.NAME",
+                    "type": "nominal",
+                    "title": "Country"
+                  },
+                  {
+                      "field": "continent", 
+                      "type": "nominal", 
+                      "title": "Continent"
+                  },
+                  {
+                    "field": "new_cases_smoothed",
+                    "type": "quantitative",
+                    "title": "New Cases"
+                  },
+                  {
+                    "field": "Total Cases Per Million",
+                    "type": "quantitative",
+                    "format": ".2f",
+                    "title": "Total Cases Per Million"
+                  },
+                  {
+                      "field": "last_updated_date",
+                      "title": "Last Updated Date"
+                    }
+                ]
+              }
+            }
+            
+          ]
+        }
+      ]
+  }

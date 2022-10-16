@@ -1,0 +1,181 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Top Cases Per Million",
+    "width": 450,
+    "height": 400,
+    "data": {
+      "url": "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest/owid-covid-latest.csv"
+    },
+    "config": {
+      "font": "Helvetica Neue, Arial",
+      "axis": {
+          "labelFont": "Helvetica Neue, Arial",
+          "titleFont": "Helvetica Neue, Arial",
+          "labelColor": "black",
+          "titleColor": "black",
+          "gridColor": "lighter",
+          "labelFontSize":12,
+          "labelLimit":500,
+          "titleFontSize": 14
+      },
+      "lineBreak": "linebreak",
+      "title":{
+          "fontSize":15,
+          "font": "Helvetica Neue, Arial", 
+          "fontStyle":"bolder"
+      },
+      "style": {
+          "text": {
+              "font": "Helvetica Neue, Arial",
+              "fontSize": 13,
+              "fontStyle": "bold"
+          }
+      }
+  },
+    "transform": [
+      {"calculate": "toNumber(datum.total_cases_per_million)", "as": "Total Cases Per Million"},
+      {
+        "window": [{"op": "rank", "as": "rank"}],
+        "sort": [{"field": "Total Cases Per Million", "order": "descending"}]
+      },
+      {"filter": "datum.rank <= TopNRank"}, 
+      {"filter": "datum.continent != \"\""} 
+    ],
+    "params": [
+      {
+        "name": "TopNRank", "value": 18,
+        "bind": {
+          "input": "range", "min": 1, "max": 45, "step": 1,
+          "name": "Top N Countries: "
+        }
+      }
+    ],
+    "layer": [
+      {
+        "params": [{"name": "topN", "select": {"type": "interval", "encodings": ["y"]}}],
+        "mark": "bar",
+        "encoding": {
+          "x": {
+            "field": "Total Cases Per Million",
+            "type": "quantitative",
+            "title": null,
+            "aggregate": "mean"
+          },
+          "y": {
+            "field": "location",
+            "title": "Country",
+            "type": "nominal",
+            "axis": null,
+            "sort": {
+              "field": "Total Cases Per Million",
+              "op": "average",
+              "order": "descending"
+            }
+          },
+          "color": {
+            "field": "continent",
+            "scale": {
+              "domain": [
+                "North America", 
+                "South America", 
+                "Europe", 
+                "Africa", 
+                "Asia", 
+                "Oceania"],
+              "range": [
+                "#9be79e", 
+                "#ffd693", 
+                "#75bdff", 
+                "#9c9191", 
+                "#d265ec", 
+                "#fe9aff"]},
+            "legend": null
+          },
+          "opacity": {
+            "condition": {
+                "param": "topN", "value": 1}, 
+                "value": 0.5},
+          "tooltip": [
+            {
+                "field": "location", 
+                "type": "nominal", 
+                "title": "Country"},
+            {
+                "field": "continent", 
+                "type": "nominal", 
+                "title": "Continent"
+            },
+            {
+                "field": "new_cases", 
+                "type": "quantitative", 
+                "title": "New Cases"
+            },
+            {
+                "field": "total_cases",
+                "type": "quantitative",
+                "title": "Total Cases"
+            },
+            {
+                "field": "Total Cases Per Million", 
+                "type": "quantitative"}, 
+            {
+                "field": "last_updated_date", 
+                "title": "Last Updated Date"
+            }
+          ]
+        }
+      },
+      {
+        "transform": [{"filter": {"param": "topN"}}],
+        "mark": "rule",
+        "encoding": {
+          "x": {
+            "aggregate": "mean",
+            "field": "Total Cases Per Million",
+            "type": "quantitative"
+          },
+          "color": {"value": "red"},
+          "size": {"value": 2}
+        }
+      },
+      {
+        "transform": [
+          {"filter": {"param": "topN"}},
+          {
+            "aggregate": [
+              {
+                "op": "mean",
+                "field": "Total Cases Per Million",
+                "as": "mean_cases"
+              }
+            ],
+            "groupby": ["topN"]
+          },
+          {"calculate": "'On average, there are '+ round(datum['mean_cases']) + ' total cases per million.' ", "as": "text_annotation"}
+        ],
+        "mark": {"type": "text", "align": "center", "dx": 0, "dy": 240},
+        "encoding": {
+            "text": {"field": "text_annotation"}, 
+            "color": {"value": "black"}}},
+      {
+        "mark": {"type": "text", "align": "left", "x": 5},
+        "encoding": {
+          "y": {
+            "field": "location",
+            "title": "Country",
+            "type": "nominal",
+            "axis": null, 
+            "sort": {
+              "field": "Total Cases Per Million",
+              "op": "average",
+              "order": "descending"
+            }
+          },
+          "text": {"field": "location"},
+          "color": {"value": "black"}
+        }
+      }
+    ]
+    
+    
+  }
